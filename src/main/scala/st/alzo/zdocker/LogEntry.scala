@@ -1,4 +1,4 @@
-package st.alzo.zio.docker
+package st.alzo.zdocker
 
 sealed trait LogEntry extends Product with Serializable {
   def value: String

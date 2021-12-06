@@ -25,7 +25,7 @@ object BuildHelper {
     "-language:implicitConversions",
     "-Xfatal-warnings",
     "-unchecked",
-    "-Ykind-projector"
+//    "-Ykind-projector"
   )
 
   def projectScalac213Options(): Seq[String] = Seq(
@@ -45,5 +45,11 @@ object BuildHelper {
     "-language:implicitConversions",
     "-Xfatal-warnings",
     "-Wconf:any:error",
+  )
+
+  def filteredConsoleOptions: Set[String] = Set("-Xfatal-warnings",
+    "-Ywarn-unused:imports", "-Ywarn-unused", "-Werror",
+    "-Wconf:any:error",
+    "-Xlint:_,-missing-interpolator,-byname-implicit"
   )
 }

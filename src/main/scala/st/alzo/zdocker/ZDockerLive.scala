@@ -1,4 +1,4 @@
-package st.alzo.zio.docker
+package st.alzo.zdocker
 
 import com.github.dockerjava.api.DockerClient
 import com.github.dockerjava.api.async.ResultCallback.Adapter

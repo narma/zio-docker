@@ -1,4 +1,4 @@
-package st.alzo.zio.docker
+package st.alzo.zdocker
 
 import zio.test.*
 import zio.test.Assertion.*

@@ -1,9 +1,12 @@
-package st.alzo.zio.docker
+package st.alzo.zdocker
 
+import com.github.dockerjava.api.DockerClient
 import com.github.dockerjava.api.command.{CreateContainerCmd, ListContainersCmd, LogContainerCmd}
 import com.github.dockerjava.api.model.Container
+import com.github.dockerjava.core.{DockerClientConfig, DockerClientImpl}
+import com.github.dockerjava.transport.DockerHttpClient
 import zio.stream.{Stream, ZStream}
-import zio.{Chunk, Task, TaskManaged, ZIO, ZManaged}
+import zio.{Chunk, Task, TaskManaged, ZIO, ZLayer, ZManaged}
 
 /** High-level API for docker-java.
   *
@@ -29,11 +32,31 @@ trait ZDocker {
 
 object ZDocker {
 
+  def fromDockerHttpClient(clientConfig: DockerClientConfig)(
+      dockerHttpClient: DockerClientConfig => Task[DockerHttpClient],
+  ): TaskManaged[ZDocker] =
+    ZManaged
+      .fromAutoCloseable(dockerHttpClient(clientConfig))
+      .flatMap { dockerHttpClient =>
+        ZManaged.fromAutoCloseable(ZIO.attempt {
+          DockerClientImpl.getInstance(clientConfig, dockerHttpClient)
+        })
+      }
+      .map(fromDockerClient)
+
+  def fromDockerClient(dockerClient: DockerClient): ZDocker = new ZDockerLive(dockerClient)
+
+  def make: ZLayer[DockerHttpClient & DockerClientConfig, Throwable, ZDocker] = (for {
+    httpClient <- ZIO.service[DockerHttpClient].toManaged
+    clientConfig <- ZIO.service[DockerClientConfig].toManaged
+    zdocker <- fromDockerHttpClient(clientConfig)(_ => Task.succeed(httpClient))
+  } yield zdocker).toLayer
+
   /** Create & start container and stop & remove it on release.
     * @param image
-    *   parsed image name see [[st.alzo.zio.docker.ImageName]]
+    *   parsed image name see [[ImageName]]
     * @param pullStrategy
-    *   see [[st.alzo.zio.docker.PullStrategy]]
+    *   see [[PullStrategy]]
     * @param setup
     *   configure start container cmd, see [[com.github.dockerjava.api.command.CreateContainerCmd]]
     * @return
@@ -64,6 +87,8 @@ object ZDocker {
   def getFileFromContainer(containerId: String, path: String): ZStream[ZDocker, Throwable, Byte] =
     ZStream.serviceWithStream(_.getFileFromContainer(containerId, path))
 
-  def listContainers(setup: ListContainersCmd => ListContainersCmd = identity): ZIO[ZDocker, Throwable, Chunk[Container]] =
+  def listContainers(
+      setup: ListContainersCmd => ListContainersCmd = identity
+  ): ZIO[ZDocker, Throwable, Chunk[Container]] =
     ZIO.serviceWithZIO(_.listContainers(setup))
 }

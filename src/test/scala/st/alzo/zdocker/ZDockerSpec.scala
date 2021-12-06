@@ -1,7 +1,7 @@
-package st.alzo.zio.docker
+package st.alzo.zdocker
 
 import com.github.dockerjava.api.exception.NotFoundException
-import st.alzo.zio.docker.testutils.ZioDockerLayers
+import st.alzo.zdocker.testutils.ZioDockerLayers
 import zio.*
 import zio.test.*
 import zio.test.Assertion.*

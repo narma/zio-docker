@@ -23,4 +23,13 @@ object Dependencies {
   ).map(_ % Test)
 
   lazy val allDeps = zDeps ++ javaDockerDeps ++ testDeps
+
+  def allDepsCross(scalaVersion: String) = CrossVersion.partialVersion(scalaVersion) match {
+    case Some((3, _)) => allDeps ++ Seq(
+      "org.immutables" % "value" % "2.8.2" // workaround for https://github.com/lampepfl/dotty/issues/13523
+    )
+    case _ => allDeps
+  }
+
+
 }

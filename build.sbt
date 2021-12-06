@@ -13,14 +13,19 @@ inThisBuild(List(
   developers := List(
     Developer(id = "narma", name = "Sergey Rublev", email = "alzo@alzo.space", url = url("https://narma.github.io"))
   )
-
 ))
 
 lazy val root = (project in file("."))
   .settings(
     name := "zio-docker",
-    libraryDependencies ++= allDeps,
+    libraryDependencies ++= allDepsCross(scalaVersion.value),
     scalacOptions := projectScalaOptions(scalaVersion.value),
-    testFrameworks := Seq(new TestFramework("zio.test.sbt.ZTestFramework"))
+    testFrameworks := Seq(new TestFramework("zio.test.sbt.ZTestFramework")),
+    Compile / console / scalacOptions  ~= (_.filterNot(
+      filteredConsoleOptions.contains
+    )),
+    Test / console / scalacOptions  ~= (_.filterNot(
+      filteredConsoleOptions.contains
+    ))
   )
 
