@@ -52,7 +52,6 @@ object ZDocker {
     zdocker <- fromDockerHttpClient(clientConfig)(_ => Task.succeed(httpClient))
   } yield zdocker).toLayer
 
-
   /** Create & start container and stop & remove it on release.
     * @param image
     *   parsed image name see [[ImageName]]
