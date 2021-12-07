@@ -13,8 +13,10 @@ object Dependencies {
   ).map(_ % zio)
 
   lazy val javaDockerDeps = Seq(
-    "com.github.docker-java" % "docker-java" % dockerJava
-  )
+    "com.github.docker-java" % "docker-java-api",
+    "com.github.docker-java" % "docker-java-core",
+    "com.github.docker-java" % "docker-java-transport"
+  ).map(_ % dockerJava)
 
   lazy val testDeps = Seq(
     "com.github.docker-java" % "docker-java-transport-httpclient5" % dockerJava,

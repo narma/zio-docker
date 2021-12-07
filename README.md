@@ -1,8 +1,8 @@
 # zio-docker
 
-| CI ZIO2 | CI ZIO1 | 
-|     --- |     --- | 
-| ![CI Badge ZIO2] | ![CI Badge ZIO1] |
+| CI ZIO2 | CI ZIO1 | Latest release | 
+|     --- |     --- | ------  |
+| ![CI Badge ZIO2] | ![CI Badge ZIO1] | [![Release Artifacts][Badge-SonatypeReleases]][Link-SonatypeReleases]
 
 High-level zio interface to [docker-java][docker-java]
 
@@ -22,7 +22,7 @@ For ZIO 1.x
 ```
 
 2. Choose docker-java transport
-from [official documentation](https://github.com/docker-java/docker-java/blob/master/docs/transports.md)
+from [official documentation][docker-java-transports]
 and add this transport dependency to your project:
 
 For example apache http transport:
@@ -83,3 +83,6 @@ rt.unsafeRun(helloWorld())
 [CI Badge ZIO2]: https://github.com/narma/zio-docker/workflows/CI/badge.svg?branch=main
 [CI Badge ZIO1]: https://github.com/narma/zio-docker/workflows/CI/badge.svg?branch=zio1
 [docker-java]: https://github.com/docker-java/docker-java
+[docker-java-transports]: https://github.com/docker-java/docker-java/blob/master/docs/transports.md
+[Badge-SonatypeReleases]: https://img.shields.io/nexus/r/https/s01.oss.sonatype.org/st.alzo/zio-docker_2.13.svg "Sonatype Releases"
+[Link-SonatypeReleases]: https://oss.sonatype.org/content/repositories/releases/st/alzo/zio-docker_2.13/ "Sonatype Releases"
