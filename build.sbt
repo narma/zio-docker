@@ -3,7 +3,6 @@ import BuildHelper._
 
 
 inThisBuild(List(
-  version          := "0.1.0-SNAPSHOT",
   organization     := "st.alzo",
   organizationName := "alzo",
   crossScalaVersions := Seq("2.13.7", "3.1.1-RC1"),
