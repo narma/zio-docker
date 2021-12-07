@@ -29,7 +29,7 @@ object ImageName {
     }
 
     parsed.map { case (img, tag) =>
-      ImageName(img, tag, Option.when(!rep.isBlank)(rep))
+      ImageName(img, tag, Option.when(rep.nonEmpty)(rep))
     }
   }
 

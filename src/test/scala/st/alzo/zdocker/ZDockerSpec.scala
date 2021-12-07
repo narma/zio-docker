@@ -15,7 +15,7 @@ object ZDockerSpec extends DefaultRunnableSpec {
         output <- ZDocker.startManagedContainer(img).use { containerId =>
           ZDocker
             .collectLogs(containerId)
-            .filterNot(_.value.isBlank)
+            .filter(_.value.trim.nonEmpty)
             .take(1)
             .runCollect
         }
