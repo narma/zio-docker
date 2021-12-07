@@ -1,15 +1,24 @@
 # zio-docker
 
-High-level zio interface to [docker-java](https://github.com/docker-java/docker-java)
+| CI ZIO2 | CI ZIO1 | 
+|     --- |     --- | 
+| ![CI Badge ZIO2] | ![CI Badge ZIO1] |
 
-zio-docker is currently available for Scala 2.13 and 3.1.1-RC1
-for zio 2.x.
+High-level zio interface to [docker-java][docker-java]
+
+zio-docker is currently available for Scala 2.13 and 3.1.1-RC1 both for ZIO 1.x and 2.x
 
 ## How to use
 1. Add zio-docker
 
+For ZIO 2.x (current for ZIO 2.0.0-M6-2)
 ```scala
-"st.alzo" %% "zio-docker" % "0.1.1"
+"st.alzo" %% "zio-docker" % "2.0.1-M1"
+```
+
+For ZIO 1.x
+```scala
+"st.alzo" %% "zio-docker" % "1.0.1"
 ```
 
 2. Choose docker-java transport
@@ -71,4 +80,6 @@ rt.unsafeRun(helloWorld())
 ```
 
 
-
+[CI Badge ZIO2]: https://github.com/narma/zio-docker/workflows/CI/badge.svg?branch=main
+[CI Badge ZIO1]: https://github.com/narma/zio-docker/workflows/CI/badge.svg?branch=zio1
+[docker-java]: https://github.com/docker-java/docker-java
