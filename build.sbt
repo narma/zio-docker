@@ -11,7 +11,8 @@ inThisBuild(List(
   homepage := Some(url("https://github.com/narma/zio-docker")),
   developers := List(
     Developer(id = "narma", name = "Sergey Rublev", email = "alzo@alzo.space", url = url("https://narma.github.io"))
-  )
+  ),
+  sonatypeCredentialHost := "s01.oss.sonatype.org"
 ))
 
 lazy val root = (project in file("."))
