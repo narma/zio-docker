@@ -71,14 +71,6 @@ class ZDockerLive(dockerClient: DockerClient) extends ZDocker {
     }
   }
 
-  /** @param image
-    *   - parsed ImageName.
-    * @param pullStrategy
-    *   default - pull only if image not exists.
-    * @param setup
-    *   Configure docker container for example: _.withHostConfig(hostConfig) .withCmd(cmd) .withStopTimeout(3)
-    * @return
-    */
   override def startManagedContainer(
       image: ImageName,
       pullStrategy: PullStrategy = PullStrategy(),

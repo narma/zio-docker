@@ -26,6 +26,7 @@ lazy val root = (project in file("."))
     )),
     Test / console / scalacOptions  ~= (_.filterNot(
       filteredConsoleOptions.contains
-    ))
+    )),
+    autoAPIMappings := true
   )
 

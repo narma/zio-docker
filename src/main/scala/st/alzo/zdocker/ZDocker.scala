@@ -52,13 +52,14 @@ object ZDocker {
     zdocker <- fromDockerHttpClient(clientConfig)(_ => Task.succeed(httpClient))
   } yield zdocker).toLayer
 
+
   /** Create & start container and stop & remove it on release.
     * @param image
     *   parsed image name see [[ImageName]]
     * @param pullStrategy
-    *   see [[PullStrategy]]
+    *   see [[PullStrategy]], default pull only if image not exists.
     * @param setup
-    *   configure start container cmd, see [[com.github.dockerjava.api.command.CreateContainerCmd]]
+    *   configure start container cmd, for example: _.withHostConfig(hostConfig) .withCmd(cmd) .withStopTimeout(3)
     * @return
     *   containerId
     */
@@ -73,8 +74,7 @@ object ZDocker {
     * @param containerId
     *   valid containerId
     * @param setup
-    *   Advanced configure LogContainerCmd. Default configuration is following stdout and stderr see
-    *   [[com.github.dockerjava.api.command.LogContainerCmd]] for advance.
+    *   Advanced configure LogContainerCmd. Default configuration is following stdout and stderr.
     */
   def collectLogs(
       containerId: String,
