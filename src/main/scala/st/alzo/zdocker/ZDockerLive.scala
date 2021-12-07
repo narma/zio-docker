@@ -132,7 +132,6 @@ class ZDockerLive(dockerClient: DockerClient) extends ZDocker {
       b <- ZStream.fromInputStreamZIO(ZIO.attemptBlockingIO(tar.getNextTarEntry).as(tar))
     } yield b
 
-
   override def listContainers(setup: ListContainersCmd => ListContainersCmd): Task[Chunk[Container]] =
     Task.attemptBlocking(Chunk.fromIterable(setup(dockerClient.listContainersCmd()).exec().asScala))
 }

@@ -33,7 +33,7 @@ trait ZDocker {
 object ZDocker {
 
   def fromDockerHttpClient(clientConfig: DockerClientConfig)(
-      dockerHttpClient: DockerClientConfig => Task[DockerHttpClient],
+      dockerHttpClient: DockerClientConfig => Task[DockerHttpClient]
   ): TaskManaged[ZDocker] =
     ZManaged
       .fromAutoCloseable(dockerHttpClient(clientConfig))

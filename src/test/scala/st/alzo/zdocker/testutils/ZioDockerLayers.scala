@@ -18,8 +18,10 @@ object ZioDockerLayers {
     )
   }
 
-  def default: ZLayer[Any, Throwable, ZDocker] = ZDocker.fromDockerHttpClient(
-    DefaultDockerClientConfig.createDefaultConfigBuilder().build()
-  )(makeClient).toLayer
+  def default: ZLayer[Any, Throwable, ZDocker] = ZDocker
+    .fromDockerHttpClient(
+      DefaultDockerClientConfig.createDefaultConfigBuilder().build()
+    )(makeClient)
+    .toLayer
 
 }
